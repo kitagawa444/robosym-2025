@@ -1,12 +1,12 @@
 % JSADD VERSION 1.12 <10 Sep 2001>
 %
 % 2001/09/10  Omit * in English title.
-% 2000/07/12  Add subtitle by advice of 
+% 2000/07/12  Add subtitle by advice of
 %                    Tatsujiro MIYAZAKI<miyazaki@mech.kyushu-u.ac.jp>
 % 1999/11/04  Changed by Kikuo Fujita <fujita@mech.eng.osaka-u.ac.jp>
 % Copyright (C) 1994 by Ken Kishimoto <kkishim@kokushikan.ac.jp>
 %
-%  Below here, new command for jsadd.sty for jsmepaper.sty. but these 
+%  Below here, new command for jsadd.sty for jsmepaper.sty. but these
 %  command are also available under normal jarticle style document.
 %
 %   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,7 +14,7 @@
 %   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % [ Various parts such as \@@etitle, \@@keywords, vskip values are
-%   customized by Kikuo Fujita, Osaka University ]: 
+%   customized by Kikuo Fujita, Osaka University ]:
 %
 %  my titlepage:
 %
@@ -60,7 +60,7 @@
 \let\jthanks\jaffiliation
 \let\thanks\jaffiliation
 %
-% re-define maketitle macros for saving memory otherwise this definition 
+% re-define maketitle macros for saving memory otherwise this definition
 % is not necessary.
 % main format of maketitle is defiened in @maketitle.
 %
@@ -69,16 +69,16 @@
  \newdimen\titlewidth\titlewidth\textwidth\advance\titlewidth-2\titleleft
  \begingroup
    \def\thefootnote{\fnsymbol{footnote}}
-   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}} 
-   \if@twocolumn\twocolumn[\@maketitle] 
+   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
+   \if@twocolumn\twocolumn[\@maketitle]
    \else\newpage\global\@topnum\z@\@maketitle\fi%
    \thispagestyle{plain}
   \footnotetext{%\hskip-6mm\kern -1.5em
      \begin{tabular}[b]{p{4mm}@{}p{67.2mm}}
      \ifx\@present\empty
-      \ifx\@date\empty\else$^{*}$ & Œ´eó•t\ \@date\\\fi%
+      \ifx\@date\empty\else$^{*}$ & åŸç¨¿å—ä»˜\ \@date\\\fi%
      \else
-      \ifx\@date\empty\else$^{*}$ & \@present CŒ´eó•t\ \@date\\\fi%
+      \ifx\@date\empty\else$^{*}$ & \@present ï¼ŒåŸç¨¿å—ä»˜\ \@date\\\fi%
      \fi
      \@jaffiliation\\
     \ifx\@email\empty\else & Email:\ {\tt\@email}\fi
@@ -93,7 +93,7 @@
  \gdef\@jthanks{}\gdef\@jauthor{}\gdef\@jtitle{}\gdef\@jkeywords{}
  \let\ethanks\relax\let\jthanks\relax
  \let\titlewidth\relax\let\titleleft\relax}
-% bold italic `Key Words:' 
+% bold italic `Key Words:'
 \def\keywordsname{\fontkeywords Key Words:}
 \font\fontkeywords=cmbxsl10 scaled 900
 %
@@ -149,12 +149,12 @@
  \ifx\@eabstract\empty\else\addvspace{3pt}\@@abstract{{\@eabstract}}\fi
  \ifx\@ekeywords\empty\else\addvspace{9pt}\@@keywords{\@ekeywords}\fi
  \addvspace{28pt}\par}
-\mark{{}{}} 
+\mark{{}{}}
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%
-%           %          cite         %(Ä’è‹`)
+%           %          cite         %(å†å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%
-% cite QÆ•¶Œ£‚Ìˆø—p”Ô†‚ğ‚ğã‚Â‚«¬•¶š‚É‚·‚é. 
+% cite å‚ç…§æ–‡çŒ®ã®å¼•ç”¨ç•ªå·ã‚’ã‚’ä¸Šã¤ãå°æ–‡å­—ã«ã™ã‚‹.
 
 % '\@cite#1#2' is replaced based on `supercite.sty` to fit with JSME
 % regulation [customized by Kikuo Fujita, Osaka University]:
@@ -182,33 +182,33 @@
 
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%
-%           %   @makecaption        %(Ä’è‹`)
+%           %   @makecaption        %(å†å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%
 % '\@makecaption' is replaced [customized by Kikuo Fujita, Osaka
-% University]: 
+% University]:
 \newlength{\@tmpwidth}
 
 \long\def\@makecaption#1#2{
  \addvspace{6pt}
  \setbox\@tempboxa\hbox{#1 \hspace{1ex} #2}
  \ifdim \wd\@tempboxa >\hsize {
-   \setlength{\@tmpwidth}{0.83\hsize} 
+   \setlength{\@tmpwidth}{0.83\hsize}
    {\begin{center}
       \begin{tabular}{@{}lp{\@tmpwidth}@{}} #1 & #2 \end{tabular}
     \end{center}}
  } \else
-   \hbox to\hsize{\hfil\box\@tempboxa\hfil} 
+   \hbox to\hsize{\hfil\box\@tempboxa\hfil}
  \fi
  \addvspace{6pt}}
 
-% }•\‚Ì•\‘è‚Í JSME ‚Å‚Í ‰pŒê‚Æ‚·‚éB
+% å›³è¡¨ã®è¡¨é¡Œã¯ JSME ã§ã¯ è‹±èªã¨ã™ã‚‹ã€‚
 \def\fnum@figure{Fig. \thefigure}
 \def\fnum@table{Table \thetable}
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%
-%           %   mtcation mfcation   %(V’è‹`)
+%           %   mtcation mfcation   %(æ–°å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%
-% table, figure ŠÂ‹«‚ÌŠO‚Å}•\‚Ì•\‘è‚ğ’è‹`‚·‚éB
+% table, figure ç’°å¢ƒã®å¤–ã§å›³è¡¨ã®è¡¨é¡Œã‚’å®šç¾©ã™ã‚‹ã€‚
 \def\mfcaption#1{\par
   \refstepcounter{figure}
   \addcontentsline{lof}{figure}%
@@ -228,10 +228,10 @@
   \endgroup}
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           %      indention   (environment)     %(V’è‹`)
+%           %      indention   (environment)     %(æ–°å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% USAGE:  preamble ‚É \includeonly{indention} ‚·‚éB
+% USAGE:  preamble ã« \includeonly{indention} ã™ã‚‹ã€‚
 %
 % DEFINITION:
 %  environment <<indention>> and <<\inditem>>
@@ -242,25 +242,25 @@
 %   \inditem{{\tt mmmm}something}
 %   ....
 % \end{indention}
-% 
+%
 % SAMPLE:
-% 
-% ’è‹`‚µ‚½ƒCƒ“ƒfƒ“ƒgƒRƒ}ƒ“ƒh‚Ì—á‚Å‚·BƒCƒ“ƒfƒ“ƒg‚ğ 2cm ‚Æ‚µ‚Ä
+%
+% å®šç¾©ã—ãŸã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚³ãƒãƒ³ãƒ‰ã®ä¾‹ã§ã™ã€‚ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã‚’ 2cm ã¨ã—ã¦
 % \begin{indention}{2cm}
-%   indention ŠÂ‹«‚Éš‰º‚°‚·‚é’·‚³‚ğw’è‚µ‚Ä‹Lq‚·‚é‚Æ –{•¶‚æ‚è‚»‚Ì‘å‚«‚³•ª
-%   š‰º‚°‚³‚ê‚Ä‚¢‚Ü‚·B‚±‚Ì’†‚Å€–Ú‚ğ‹Lq‚·‚é‚±‚Æ‚à‚Å‚«‚Ü‚·B
-%   \inditem{{\tt itemize}ŠÂ‹«}
-%   inditem ‚Í indention ŠÂ‹«’†‚Å‚Ì‚İg—p‚Å‚«‚é€–Ú‹Lq‚Å‚·Bˆø”‚ğ‚P‚Âæ‚è
-%   ‚Ü‚·B‚±‚Ìˆø”‚ÍŠe€–Ú‚Ìæ“ª‚Éƒ‰ƒxƒ‹‚Æ‚µ‚Ä•t‚¯‚Äo—Í‚µ‚Ü‚·B
-%   indention ŠÂ‹«‚ğƒlƒXƒg‚·‚é‚±‚Æ‚à‚Å‚«‚Ü‚·B
+%   indention ç’°å¢ƒã«å­—ä¸‹ã’ã™ã‚‹é•·ã•ã‚’æŒ‡å®šã—ã¦è¨˜è¿°ã™ã‚‹ã¨ æœ¬æ–‡ã‚ˆã‚Šãã®å¤§ãã•åˆ†
+%   å­—ä¸‹ã’ã•ã‚Œã¦ã„ã¾ã™ã€‚ã“ã®ä¸­ã§é …ç›®ã‚’è¨˜è¿°ã™ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚
+%   \inditem{{\tt itemize}ç’°å¢ƒ}
+%   inditem ã¯ indention ç’°å¢ƒä¸­ã§ã®ã¿ä½¿ç”¨ã§ãã‚‹é …ç›®è¨˜è¿°ã§ã™ã€‚å¼•æ•°ã‚’ï¼‘ã¤å–ã‚Š
+%   ã¾ã™ã€‚ã“ã®å¼•æ•°ã¯å„é …ç›®ã®å…ˆé ­ã«ãƒ©ãƒ™ãƒ«ã¨ã—ã¦ä»˜ã‘ã¦å‡ºåŠ›ã—ã¾ã™ã€‚
+%   indention ç’°å¢ƒã‚’ãƒã‚¹ãƒˆã™ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚
 %   \begin{indention}{2cm}
-%     ‚±‚Ì‚æ‚¤‚É‚³‚ç‚Éš‰º‚°‚ªs‚í‚ê‚Ü‚·BÅ‰‚Ìs‚Ìš‰º‚°‚ğ‚µ‚È‚¢‚Æ‚«‚É‚Í 
-%     $backslash$noindent ‚ğæ“ª‚É“ü‚ê‚é‚Æ‚æ‚¢‚Å‚µ‚å‚¤B
+%     ã“ã®ã‚ˆã†ã«ã•ã‚‰ã«å­—ä¸‹ã’ãŒè¡Œã‚ã‚Œã¾ã™ã€‚æœ€åˆã®è¡Œã®å­—ä¸‹ã’ã‚’ã—ãªã„ã¨ãã«ã¯
+%     $backslash$noindent ã‚’å…ˆé ­ã«å…¥ã‚Œã‚‹ã¨ã‚ˆã„ã§ã—ã‚‡ã†ã€‚
 %   \end{indention}
-%   ‚±‚±‚ÅC“à‘¤‚Ì indention ŠÂ‹«‚ª•Â‚¶‚ÄCˆê‚Â‘O‚ÌƒCƒ“ƒfƒ“ƒg‚É–ß‚è‚Ü‚µ‚½B
+%   ã“ã“ã§ï¼Œå†…å´ã® indention ç’°å¢ƒãŒé–‰ã˜ã¦ï¼Œä¸€ã¤å‰ã®ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã«æˆ»ã‚Šã¾ã—ãŸã€‚
 % \end{indention}
-% ‚±‚ê‚Å‘S•”‚ÌƒCƒ“ƒfƒ“ƒgŠÂ‹«‚ğI‚è‚Ü‚µ‚½B
-% 
+% ã“ã‚Œã§å…¨éƒ¨ã®ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆç’°å¢ƒã‚’çµ‚ã‚Šã¾ã—ãŸã€‚
+%
 \def\indention#1{\par\advance\leftskip #1
   \def\inditem##1{
   \dimen1\leftskip\advance\dimen1 -1ex
@@ -271,12 +271,12 @@
 %           %      enumerate   (environment)     %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% ã‰º‚ÌŠÔŠu‚â€–ÚŠÔ‚Ì‹ó”’‚ğ‚È‚­‚µ‚½‚à‚Ì
+% ä¸Šä¸‹ã®é–“éš”ã‚„é …ç›®é–“ã®ç©ºç™½ã‚’ãªãã—ãŸã‚‚ã®
 %
-% USAGE:  g—p–@‚Í LaTeX ‚É“¯‚¶B
+% USAGE:  ä½¿ç”¨æ³•ã¯ LaTeX ã«åŒã˜ã€‚
 %
 \def\enumerate{\ifnum \@enumdepth >3 \@toodeep\else
-    \advance\@enumdepth \@ne 
+    \advance\@enumdepth \@ne
     \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
     \list{\csname label\@enumctr\endcsname}
     {\usecounter{\@enumctr}\def\makelabel##1{\hss\llap{##1}}
@@ -286,9 +286,9 @@
 %           %      itemize     (environment)     %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% ã‰º‚ÌŠÔŠu‚â€–ÚŠÔ‚Ì‹ó”’‚ğ‚È‚­‚µ‚½‚à‚Ì
+% ä¸Šä¸‹ã®é–“éš”ã‚„é …ç›®é–“ã®ç©ºç™½ã‚’ãªãã—ãŸã‚‚ã®
 %
-% USAGE:  g—p–@‚Í LaTeX ‚É“¯‚¶B
+% USAGE:  ä½¿ç”¨æ³•ã¯ LaTeX ã«åŒã˜ã€‚
 %
 \def\itemize{\ifnum \@itemdepth >3 \@toodeep\else
     \advance\@itemdepth \@ne
@@ -301,10 +301,10 @@
 %           %      enumlist    (environment)     %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% enumrate ‚Æ description ‚ğ‘g‚İ‡‚¹‚½‚æ‚¤‚ÈŠÂ‹«
-% adapted ˆÉ“¡˜al,'LaTeX ©—R©İ',G˜aƒVƒXƒeƒ€ƒgƒŒ[ƒfƒBƒ“ƒO,(1991),129
+% enumrate ã¨ description ã‚’çµ„ã¿åˆã›ãŸã‚ˆã†ãªç’°å¢ƒ
+% adapted ä¼Šè—¤å’Œäºº,'LaTeX è‡ªç”±è‡ªåœ¨',ç§€å’Œã‚·ã‚¹ãƒ†ãƒ ãƒˆãƒ¬ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°,(1991),129
 %
-% USAGE:  preamble ‚É \includeonly{enumlist} ‚·‚éB
+% USAGE:  preamble ã« \includeonly{enumlist} ã™ã‚‹ã€‚
 %
 % DEFINITION:
 %  environment <<enumlist>> and <<\ellist>>
@@ -315,29 +315,29 @@
 %   \ellist{{\tt mmmm}something}  <-- \item can not do this. use \ellist.
 %   ....
 % \end{enumlist}
-% 
+%
 % SAMPLE:
-% 
+%
 % \begin{enumlist}
-%   \ellist{{\tt itemize}ŠÂ‹«}
-%   itemizeŠÂ‹«‚ÍCŠe€–Ú‚Ìæ“ª‚Éƒ‰ƒxƒ‹‚Æ‚µ‚Ä‹L†‚ğ•t‚¯C‘S‘Ì‚ğ‚â‚âš‰º‚°‚µ
-%   ‚Äo—Í‚µ‚Ü‚·B
-% 
-%   itemizeŠÂ‹«‚Ì’†‚ÉX‚ÉCitemizeŠÂ‹«‚ª“ü‚éƒlƒXƒeƒBƒ“ƒO‚ª‰Â”\‚Å‚·BƒlƒXƒe
-%   ƒBƒ“ƒO‚ğs‚È‚¤‚Æƒ‰ƒxƒ‹‚Í$\bullet$¨{\bfseries --}¨$\ast$¨$\cdot$‚Æ‚È‚è‚Ü‚·B
-%   \ellist{{\tt enumrate}ŠÂ‹«}
-%   enumrate ŠÂ‹«‚ÍCitemize ŠÂ‹«‚ÆˆÙ‚È‚èŠe€–Ú‚É”Ô†‚ğU‚è‚Ü‚·Benumrate 
-%   ŠÂ‹«‚à4ƒŒƒxƒ‹‚Ü‚Å‚ÌƒlƒXƒeƒBƒ“ƒO‚ª‰Â”\‚Å‚·B
-%   \ellist{{\tt description}ŠÂ‹«}
-%   description ŠÂ‹«‚Å‚ÍCŠe€–Ú‚ÉCƒ†[ƒU[‚ª€–Ú–¼‚ğ•t‚¯‚Ü‚·B€–Ú–¼‚Íƒ‰
-%   ƒxƒ‹‚Æ‚È‚è‚Ü‚·‚ªC\item ƒRƒ}ƒ“ƒh‚ÌƒIƒvƒVƒ‡ƒ“ˆø”‚Æ‚µ‚Äw’è‚µ‚Ü‚·Bƒ‰ƒx
-%   ƒ‹‚Í‰pŒê‚Å‚Í‘¾‚¢š‚ÅC“ú–{Œê‚Å‚ÍCƒSƒ`ƒbƒN‘Ì‚Åo—Í‚³‚ê‚Ü‚·B‘‘Ì‚ğ•ÏX
-%   ‚·‚é‚É‚Í‘‘Ì•ÏXƒRƒ}ƒ“ƒh‚ğ€–Ú’†‚ÉŠÜ‚ß‚é‚Æ‚æ‚¢‚Å‚µ‚å‚¤B
+%   \ellist{{\tt itemize}ç’°å¢ƒ}
+%   itemizeç’°å¢ƒã¯ï¼Œå„é …ç›®ã®å…ˆé ­ã«ãƒ©ãƒ™ãƒ«ã¨ã—ã¦è¨˜å·ã‚’ä»˜ã‘ï¼Œå…¨ä½“ã‚’ã‚„ã‚„å­—ä¸‹ã’ã—
+%   ã¦å‡ºåŠ›ã—ã¾ã™ã€‚
+%
+%   itemizeç’°å¢ƒã®ä¸­ã«æ›´ã«ï¼Œitemizeç’°å¢ƒãŒå…¥ã‚‹ãƒã‚¹ãƒ†ã‚£ãƒ³ã‚°ãŒå¯èƒ½ã§ã™ã€‚ãƒã‚¹ãƒ†
+%   ã‚£ãƒ³ã‚°ã‚’è¡Œãªã†ã¨ãƒ©ãƒ™ãƒ«ã¯$\bullet$â†’{\bfseries --}â†’$\ast$â†’$\cdot$ã¨ãªã‚Šã¾ã™ã€‚
+%   \ellist{{\tt enumrate}ç’°å¢ƒ}
+%   enumrate ç’°å¢ƒã¯ï¼Œitemize ç’°å¢ƒã¨ç•°ãªã‚Šå„é …ç›®ã«ç•ªå·ã‚’æŒ¯ã‚Šã¾ã™ã€‚enumrate
+%   ç’°å¢ƒã‚‚4ãƒ¬ãƒ™ãƒ«ã¾ã§ã®ãƒã‚¹ãƒ†ã‚£ãƒ³ã‚°ãŒå¯èƒ½ã§ã™ã€‚
+%   \ellist{{\tt description}ç’°å¢ƒ}
+%   description ç’°å¢ƒã§ã¯ï¼Œå„é …ç›®ã«ï¼Œãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒé …ç›®åã‚’ä»˜ã‘ã¾ã™ã€‚é …ç›®åã¯ãƒ©
+%   ãƒ™ãƒ«ã¨ãªã‚Šã¾ã™ãŒï¼Œ\item ã‚³ãƒãƒ³ãƒ‰ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³å¼•æ•°ã¨ã—ã¦æŒ‡å®šã—ã¾ã™ã€‚ãƒ©ãƒ™
+%   ãƒ«ã¯è‹±èªã§ã¯å¤ªã„å­—ã§ï¼Œæ—¥æœ¬èªã§ã¯ï¼Œã‚´ãƒãƒƒã‚¯ä½“ã§å‡ºåŠ›ã•ã‚Œã¾ã™ã€‚æ›¸ä½“ã‚’å¤‰æ›´
+%   ã™ã‚‹ã«ã¯æ›¸ä½“å¤‰æ›´ã‚³ãƒãƒ³ãƒ‰ã‚’é …ç›®ä¸­ã«å«ã‚ã‚‹ã¨ã‚ˆã„ã§ã—ã‚‡ã†ã€‚
 %   \ellist{}
-%   ‚±‚ê‚ÍCˆø”‚Ì‚È‚¢ \verb!\ellist!ƒRƒ}ƒ“ƒh‚Ì—á‚Å‚·B
-%   \ellist{{\tt enumlist}ŠÂ‹«}
-%   enumlistŠÂ‹«‚ÍC‚±‚±‚Ån‚ß‚Ä’è‹`‚³‚ê‚½‰Óğ‘‚«ŠÂ‹«‚Å‚·BƒlƒXƒeƒBƒ“ƒO‚Í
-%   ‚Å‚«‚Ü‚¹‚ñB‚±‚Ì—á‚Í{\tt enumlist}ŠÂ‹«‚Å‚©‚©‚ê‚Ä‚¢‚Ü‚·B
+%   ã“ã‚Œã¯ï¼Œå¼•æ•°ã®ãªã„ \verb!\ellist!ã‚³ãƒãƒ³ãƒ‰ã®ä¾‹ã§ã™ã€‚
+%   \ellist{{\tt enumlist}ç’°å¢ƒ}
+%   enumlistç’°å¢ƒã¯ï¼Œã“ã“ã§å§‹ã‚ã¦å®šç¾©ã•ã‚ŒãŸç®‡æ¡æ›¸ãç’°å¢ƒã§ã™ã€‚ãƒã‚¹ãƒ†ã‚£ãƒ³ã‚°ã¯
+%   ã§ãã¾ã›ã‚“ã€‚ã“ã®ä¾‹ã¯{\tt enumlist}ç’°å¢ƒã§ã‹ã‹ã‚Œã¦ã„ã¾ã™ã€‚
 % \end{enumlist}
 %
 \def\enumlist{%
@@ -348,22 +348,22 @@
 \let\endenumlist=\endlist
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           %              dhline                %(V’è‹`)
+%           %              dhline                %(æ–°å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% •\‘g‚ÅA‘¾‚¢‰¡ü‚ğ—p‚¢‚éB‘¾‚³‚ğ•Ï‚¦‚éê‡‚É‚Í arrayrulewidth ‚Ì”{”‚ğ
-% •Ï‰»‚³‚¹‚ê‚Î—Ç‚¢B
+% è¡¨çµ„ã§ã€å¤ªã„æ¨ªç·šã‚’ç”¨ã„ã‚‹ã€‚å¤ªã•ã‚’å¤‰ãˆã‚‹å ´åˆã«ã¯ arrayrulewidth ã®å€æ•°ã‚’
+% å¤‰åŒ–ã•ã›ã‚Œã°è‰¯ã„ã€‚
 %
 \def\dhline{\noalign{\ifnum0=`}\fi%
    \hrule \@height 3\arrayrulewidth \futurelet
    \@tempa\@xhline}
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           %    Šeí‹L†(”Ä—p)                  %(V’è‹`)
+%           %    å„ç¨®è¨˜å·(æ±ç”¨)                  %(æ–°å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
+%% ï¿¥
 \def\yen{{\setbox0=\hbox{Y}Y\kern-.97\wd0\vbox{\hrule height.1ex width.98\wd0
 \kern.33ex\hrule height.1ex width.98\wd0\kern.45ex}}}
-%% 
+%% â„ƒ
 \def\degc{\raisebox{0.2em}{\(^{\circ}\)}\hspace{-.1em}C}
 %% Klab symbol
 \font\rbm=cmbxti10
@@ -372,7 +372,7 @@
 %\signif{\KLab}
 %
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           %    Šeí‹L†(math ŠÂ‹«ê—p)         %(V’è‹`)
+%           %    å„ç¨®è¨˜å·(math ç’°å¢ƒå°‚ç”¨)         %(æ–°å®šç¾©)
 %           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% style of differncial equation
 \def\dif#1#2{{\displaystyle\frac{d{#1}}{d{#2}}}}
@@ -406,7 +406,7 @@
    \vspace*{0.8em}%
    \begin{center}
     \rule{0.4\textwidth}{0.2pt}
-   \end{center}   
+   \end{center}
    \vspace{1ex}
   \end{minipage}}%
 %

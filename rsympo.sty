@@ -31,8 +31,8 @@
  \newdimen\titlewidth\titlewidth\textwidth\advance\titlewidth-2\titleleft
  \begingroup
    \def\thefootnote{\fnsymbol{footnote}}
-   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}} 
-   \if@twocolumn\twocolumn[\@maketitle] 
+   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
+   \if@twocolumn\twocolumn[\@maketitle]
    \else\newpage\global\@topnum\z@\@maketitle\fi%
    \thispagestyle{plain}
    \footnotetext{
@@ -105,7 +105,7 @@
  \ifx\@eabstract\empty\else\addvspace{3pt}\@@abstract{{\@eabstract}}\fi
  \ifx\@ekeywords\empty\else\addvspace{9pt}\@@keywords{\@ekeywords}\fi
  \addvspace{28pt}\par}
-\mark{{}{}} 
+\mark{{}{}}
 
 \renewcommand{\section}{\@ifstar{\@ssection}{\@section}}%
 \renewcommand{\@section}[1]{\@startsection{section}{1}{\z@}%
@@ -135,7 +135,7 @@
    {\hspace*{2.1ex}\reset@font\normalsize\bfseries}
    {\protect\@ifstar{#1}{\hspace*{1.4ex} #1}}}
 
-\renewcommand{\refname}{\ifjapan {\small éQçlï∂å£}\else {\small References}\fi}
+\renewcommand{\refname}{\ifjapan {\small ÂèÇËÄÉÊñáÁåÆ}\else {\small References}\fi}
 \renewenvironment{thebibliography}[1] {
   \bigskip\par
   \parindent=0pt\hfil{\semilarge\bf\makebox[5zw][s]{{\normalsize\refname}}}
