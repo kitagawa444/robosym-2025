@@ -24,7 +24,7 @@ $ make
 $ make pub
 # or
 $ make publish
-# will convert $B!V!"!W!V!#!W(B to $B!V!$!W!V!%!W(B in *.tex
+# will convert 「、」「。」 to 「，」「．」 in *.tex
 # Original files are backed up as *.tex.orig
 ```
 
