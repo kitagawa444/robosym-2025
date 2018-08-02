@@ -1,6 +1,6 @@
-# p-report-template
+# robosym-template
 
-Latex template for p-report
+Latex template for Robotics Symposia
 
 [![Build Status](https://travis-ci.org/furushchev/p-report-template.svg)](https://travis-ci.org/furushchev/p-report-template)
 
