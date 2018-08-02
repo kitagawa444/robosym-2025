@@ -1,0 +1,163 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% sympo.sty v1.1 (2010.10.22)                                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SYMPO VERSION 1.1 <22 Oct 2010>
+%
+% v1.1 2010/10/22  Remove both side bar in subtitle
+% v1.0 2010/10/01  Created for Robotics Symposia
+\makeatletter
+
+\twocolumn
+\voffset -0.4mm
+\headheight 0mm
+\headsep 0mm
+%\headsep 15pt
+\footskip 14pt
+\parindent 1zw
+\paperheight 297mm
+\paperwidth 210mm
+\columnsep 6mm
+\dimen1 80mm
+\textheight\paperheight\advance\textheight -52mm
+\textwidth 2\dimen1 \advance\textwidth\columnsep
+\topmargin 0mm
+\oddsidemargin 23mm \advance\oddsidemargin -25.4mm
+\evensidemargin\oddsidemargin
+\renewcommand{\baselinestretch}{1.0}
+
+\newcount\@abind
+\renewcommand{\maketitle}{\par
+\newdimen\titleleft \titleleft 11.5mm
+ \newdimen\titlewidth\titlewidth\textwidth\advance\titlewidth-2\titleleft
+ \begingroup
+   \def\thefootnote{\fnsymbol{footnote}}
+   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}} 
+   \if@twocolumn\twocolumn[\@maketitle] 
+   \else\newpage\global\@topnum\z@\@maketitle\fi%
+   \thispagestyle{plain}
+   \footnotetext{
+     \hskip2.5mm\kern -1.5em
+     \begin{tabular}[b]{p{4mm}@{}p{71.2mm}}
+     \@jaffiliation
+     \end{tabular}}\par
+ \baselineskip 15.6pt\endgroup
+ \setcounter{footnote}{0}
+ \let\maketitle\relax
+ \let\@maketitle\relax
+ \let\eaffiliation\relax\gdef\@eafiliation{}
+ \let\jaffiliation\relax\gdef\@jafiliation{}
+ \gdef\@ethanks{}\gdef\@eauthor{}\gdef\@etitle{}\gdef\@ekeywords{}
+ \gdef\@jthanks{}\gdef\@jauthor{}\gdef\@jtitle{}\gdef\@jkeywords{}
+ \let\ethanks\relax\let\jthanks\relax
+ \let\titlewidth\relax\let\titleleft\relax}
+%
+\def\keywordsname{\fontkeywords Key Words:}
+\font\fontkeywords=cmbxsl10 scaled 900
+%
+\renewcommand{\nospitem}{\itemsep=0pt\parskip=0pt\parsep=0pt\partopsep=0pt}
+\def\@@title#1#2{\hfil\parbox{\titlewidth}{
+  \begin{center}\Large\bfseries
+    \renewcommand{\baselinestretch}{1.2}
+      #1\\{\large #2}\end{center}}\vskip 0.8em}
+\def\@@etitle#1#2{\hfil\parbox{\titlewidth}{
+  \begin{center}\large\bfseries
+     \renewcommand{\baselinestretch}{0.95}\setlength{\baselineskip}{18pt}
+       #1\\{\large\bfseries {\bfseries #2}}\end{center}}\vskip .6em}
+\def\@@author#1{%
+  \hfil%
+%\ifnum\@abind=1%
+%  {\parbox[t]{\titlewidth}{\begin{flushright}{\large #1}\end{flushright}}}
+%  \else{\parbox[t]{\titlewidth}{\centering{\large{#1}}}}\fi%
+  \parbox[t]{\titlewidth}{\centering{\large{#1}}}%
+  \vskip 1ex}
+%
+\def\@@abstract#1{%
+  \begin{list}{}{\setlength{\leftmargin}{17mm}%
+  \topsep=0pt \partopsep=0pt \parsep=0pt \listparindent=8pt
+  \setlength{\rightmargin}{\leftmargin}\fontsize{10}{11.5}\selectfont}
+  \item[]\ignorespaces\mbox{}\abind #1 \par\vskip .3em\end{list}}
+\def\@@keywords#1{
+  \setbox\@tempboxa\hbox{\small\textit{\textbf{Key Words}}~:~~~}
+  \begin{list}{\small\textit{\textbf{Key Words}}~:~}
+   {\setlength{\leftmargin}{17mm}%
+   \topsep=0pt \partopsep=0pt \parsep=0pt \listparindent=9pt
+   \setlength{\rightmargin}{\leftmargin}
+   \setlength{\labelwidth}{20em}
+   \advance \leftmargin \wd\@tempboxa
+   \small\baselineskip=11.3pt}
+  \item #1 \end{list}\relax}
+\renewcommand{\abind}{\par\vskip.2\baselineskip\ignorespaces{\hskip 2em}}
+%
+\renewcommand{\@maketitle}{\newpage\null%
+ \@abind=1
+ \ifx\@jtitle\empty\else\addvspace{20pt}\@@title{\@jtitle}{\@jsubtitle}\fi
+ \ifx\@jauthor\empty\else\@@author{\@jauthor}\fi
+ \ifx\@jabstract\empty\else\addvspace{5pt}\@@abstract{\@jabstract}\fi
+ \ifx\@jkeywords\empty\else\addvspace{5pt}\@@keywords{\@jkeywords}\fi
+ \@abind=2
+ \ifx\@etitle\empty\else\addvspace{-22pt}\@@etitle{\@etitle}{\@esubtitle}\fi
+ \ifx\@eauthor\empty\else\@@author{\@eauthor}\fi
+ \ifx\@eaffiliation\empty\else\addvspace{5pt}{
+ \begin{center}\renewcommand{\arraystretch}{0.85}\small%\itshape
+ \begin{tabular}{c}\@eaffiliation\end{tabular}
+ \end{center}
+ }\fi
+ \ifx\@eabstract\empty\else\addvspace{3pt}\@@abstract{{\@eabstract}}\fi
+ \ifx\@ekeywords\empty\else\addvspace{9pt}\@@keywords{\@ekeywords}\fi
+ \addvspace{28pt}\par}
+\mark{{}{}} 
+
+\renewcommand{\section}{\@ifstar{\@ssection}{\@section}}%
+\renewcommand{\@section}[1]{\@startsection{section}{1}{\z@}%
+   {0.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+   {.35\Cvs \@plus.3\Cdp}%
+   {\reset@font\semilarge\center\bfseries}
+   {\protect\normalsize{.}\leavevmode\setbox\@tempboxa\hbox{#1}%
+    \hspace*{1.2ex}\protect\@spsection{#1}}}
+\renewcommand{\@ssection}[1]{\@startsection{section}{10}{\z@}%
+   {0.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+   {.35\Cvs \@plus.3\Cdp}%
+   {\reset@font\semilarge\center\bfseries}
+   {\leavevmode\setbox\@tempboxa\hbox{#1}%
+    \hspace*{1.2ex}\protect\@spsection{#1}}}
+\renewcommand{\@spsection}[1]{%
+    \setbox\@tempboxa\hbox{\begin{tabular}{@{}c@{}}#1\end{tabular}}
+    \ifdim\wd\@tempboxa>9zw#1\else
+    \ifdim\wd\@tempboxa>3zw\makebox[8zw][s]{#1}\else\makebox[5zw][s]{#1}\fi\fi}
+\renewcommand{\subsection}[1]{\@startsection{subsection}{2}{\z@}%
+   {0.0\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+   {-1.4\Cvs \@plus.3\Cdp}%
+   {\hspace*{2.1ex}\reset@font\normalsize\bfseries}
+   {\protect\@ifstar{#1}{\hspace*{1.4ex} #1}}}
+\renewcommand{\subsubsection}[1]{\@startsection{subsubsection}{3}{\z@}%
+   {0.0\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+   {-1.4\Cvs \@plus.3\Cdp}%
+   {\hspace*{2.1ex}\reset@font\normalsize\bfseries}
+   {\protect\@ifstar{#1}{\hspace*{1.4ex} #1}}}
+
+\renewcommand{\refname}{\ifjapan {\small éQçlï∂å£}\else {\small References}\fi}
+\renewenvironment{thebibliography}[1] {
+  \bigskip\par
+  \parindent=0pt\hfil{\semilarge\bf\makebox[5zw][s]{{\normalsize\refname}}}
+  \vskip 2ex\par
+  \list{({\@arabic\c@enumiv})}
+    {\setlength{\baselineskip}{12pt}\settowidth\labelwidth{\@biblabel{#1}}
+      \leftmargin\labelwidth
+      \advance\leftmargin\labelsep
+      \@openbib@code
+      \usecounter{enumiv}
+      \let\p@enumiv\@empty
+      \renewcommand\theenumiv{\@arabic\c@enumiv}}
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty\clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m}
+  {\def\@noitemerr
+    {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
+\let\@openbib@code\@empty
+
+\hbadness=10000
+\hfuzz=10pt
+\makeatother
