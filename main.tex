@@ -2,7 +2,7 @@
 %%
 %% RStemplate.tex
 %%
-%%   このテンプレートは，LaTeX-2e 専用です。
+%%   このテンプレートは，LaTeX-2e 専用です．
 %%
 %%
 %%
@@ -13,260 +13,520 @@
 \usepackage{bm}
 \usepackage{epic,eepic}
 \usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{cite}
 
 \pagestyle{empty}
 %---------------------------------------------------------------------
 % 和文主題
 %---------------------------------------------------------------------
 \title{
-  ロボティクスシンポジア原稿体裁について
+  全方位地上ロボットの3D LiDAR SLAM及び\\適応的群移動制御による大型物体の協調運搬の実現
 }
 %---------------------------------------------------------------------
 % 和文副題
 %---------------------------------------------------------------------
-\subtitle{
-  --- 副題 ---
-}
+%% \subtitle{
+%%   --- 副題 ---
+%% }
 %---------------------------------------------------------------------
 % 英文主題
 %---------------------------------------------------------------------
 \etitle{
-  Paper Format for the Robotics Symposia
+ Cooperative transportation of large object by swarm of omni-directional mobile robots with 3D LiDAR SLAM and adaptive formation control
 }
 %---------------------------------------------------------------------
 % 英文副題
 %---------------------------------------------------------------------
-\esubtitle{
-  --- Sub-Title ---
-}
+%% \esubtitle{
+%%   --- Sub-Title ---
+%% }
 %---------------------------------------------------------------------
 % 著者和文名
 %---------------------------------------------------------------------
 \jauthor{
-  炉簿 手楠$^{*1}$,\ \
-  進歩 次亜$^{*2}$
+北川　昌樹$^{*1}$
+李 謹傑$^{*1}$
+杉原　惇一朗$^{*2}$\\
+松本　幹起也$^{*3}$
+北村　敬広$^{*3}$
+長藤　圭介$^{*1}$
+趙　漠居$^{*1}$
 }
 %---------------------------------------------------------------------
 % 著者英文名
 %---------------------------------------------------------------------
 \eauthor{
-  Robo TEKUSU$^{*1}$ and
-  Jia SINPO$^{*2}$
+  Masaki Kitagawa$^{*1}$, Jinjie Li$^{*1}$, Junichiro Sugihara$^{*2}$, \\Mikiya Matsumoto$^{*3}$, Takahiro Kitamura$^{*3}$, Keisuke Nagato$^{*1}$ and Moju Zhao$^{*1}$
 }
 %---------------------------------------------------------------------
 % 著者の所属の和文
 %---------------------------------------------------------------------
 \jaffiliation{
-  $^{*1}$ & トキオ大学工学部ロボット工学科（〒111-1111 東京都大学区大学通り1-1-1）robo@robot.u-tokio.ac.jp\\
-  $^{*2}$ & 古都大学大学院工学研究科進歩工学科（〒111-1111 京都市大学町744）sinpo@mech.koto-u.ac.jp
+  $^{*1}$ & 東京大学大学院工学研究科機械工学専攻（〒113-8654 東京都文京区本郷7-3-1)\\
+  $^{*2}$ & 東京大学大学院情報理工学系研究科知能機械情報学専攻（〒113-8654 東京都文京区本郷7-3-1)\\
+  $^{*3}$ & トヨタ自動車株式会社（〒471-8571　愛知県豊田市トヨタ町1番地）
 }
 %---------------------------------------------------------------------
 % 著者の所属の英文
 %---------------------------------------------------------------------
 \eaffiliation{
-  $^{*1}$ Department of Robot Engineering, Tokio University \\
-1-1-1 Daigaku-dori, Daigaku-ku, Tokyo 111-1111, Japan \\
-  $^{*2}$Department of Shinpo Engineering, Koto University \\
-744 Daigaku-chou, Kyoto 111-1111, Japan
+  $^{*1}$ Department of Mechanical Engineering, Tokyo University \\
+  7-3-1 Hongo, bunkyo-ku, Tokyo 113-8654, Japan \\
+  $^{*2}$ Department of Mechano-Informatics, Tokyo University \\
+  7-3-1 Hongo, bunkyo-ku, Tokyo 113-8654, Japan \\
+  $^{*3}$TOYOTA MOTOR COMPANY, 1 Toyota-chou, \\
+  Toyota-shi, Aichi 471-8571, Japan
 }
 %---------------------------------------------------------------------
 % 英文の概要
 %---------------------------------------------------------------------
-\abstract{%
-This template is written for the Robotics Symposia paper format
-which is based on the macro package of J.S.M.E. paper form for \LaTeXe.
-Please get the package from J.S.M.E home page to compile
-the source file,
-and refer the source file to prepare the manuscript for submitting.
-%\abind
-Abstract should be described by 100-200 words for summarizing the paper.
-Xxxxxxxx xxxxxxxxxx xxx xxxxxxxxxxxxx xxxxxx xxxxxxxxxxx xxxxxxxxxxxx.
-Xxxxxxxxxxxxxx xxx xxxxxxxxx x xxxxxxxxx xxxxxxxxxxxxxxxxxx xx xx xxxxxxx,
-xxxxx xxxxxxx xxxxxxxx xxxxxxxxxx xx xxxxxxxxxxx xxxxxxxxxxx xxxxxxxxxx.
+\abstract{
+In this study, we propose a control strategy for transporting a large object by cooperative control of multiple small omnidirectional robots.
+Through distributed control, each robot's self-position is estimated autonomously by 3DLiDAR, and through centralized control, each robot's spacing is maintained for movement.
+Experiments were conducted to transport a two-dimensional pallet to verify the adaptability of the movement control.  
 }
 %---------------------------------------------------------------------
 % キーワード
 %---------------------------------------------------------------------
-\keywords{Robotics Symposia, Paper format, \LaTeXe}
+\keywords{Swarm robot, Cooperative transportation,Omni-directionalrobot}
 %---------------------------------------------------------------------
 \begin{document}
 \maketitle
 \thispagestyle{empty}
-%
-\section{緒言}
-本稿は，ロボティクスシンポジアの投稿論文の体裁についてまとめたものである．
 
-論文は，A4用紙を用い，上下のマージンを25mm，左右のマージンを23mmとする．
-原稿は6ページを基本とし，最大8ページまで認められる．
-ただし，6ページを超過した場合，1ページあたり10,000円の超過料金が必要となる．
+\section{はじめに}
+　現在，多くの工場では，効率化のために部品運搬としてAGVやAMRといった自動運搬車両が利用されている．この車両の上に専用の治具を取り付けて，特定の部品や組み立てに必要な治工具類を運搬している．しかしながら，これらの車両は特定の物体を運搬するために専用設計されたものとなっており，新規部品を運搬するには再設計が必要となる上，工場などの室内空間ではスペースに限りがあるため，新製品を開発する障害となっている．そのため，様々な物体を運搬することのできる汎用的な運搬方法が求められている．そこで，単体のロボットで運搬するのではなく複数のロボットが協調することによって運搬する手法が提案されている．　　らは群ロボットを利用して，物体を押すことによって運搬する戦略を構築した．ロボットは目標値との差や力学的な作用を計算し，運搬物との接触位置と力の方向を調節する．　　らは摩擦係数や運搬物の重心といった事前情報なしに，適応分散制御により運搬する手法を確立した．しかしながら，これらの運搬手法は，運搬対象物が特定の物体に限られていたり，自己位置推定に他の技術に依存する．
 
-\section{題目，著者，所属，及びアブストラクト}
-まず，論文の和文題目を「ゴシック体・14pts・ボールド・センタリング」で書く．
-副題がある場合は，フォントサイズを12ptsとして``---"で挟む．
-それ以外のフォーマットはタイトルに準拠する．
-続いて和文著者氏名を「ゴシック・12pts・センタリング」で書く．
-各著者氏名の後には，上付で注番号を付ける．
-続けて
-英文題目を「Times New Roman・12pts・ボールド・センタリング」で書く．
-副題は同じ書式で書き，``---"で挟む．
-その下に，
-英文著者氏名を「Times New Roman・12pts・センタリング」で書き，
-英文著者氏名の後にも，和文著者氏名の注番号に対応するように，上付で注番号を付ける．
-英文著者氏名の下に英文所属を「Times New Roman・10pts・センタリング」で書く．
-各英文所属の前には，著者氏名に対応する注番号を上付で付ける．
-なお，和文の所属，住所，およびE-mailアドレスは脚注（1ページ目左下）にまとめる．
-脚注の和文所属の前にも，著者氏名に対応する注番号を上付で付ける．
+ロボットの自律した自己位置推定技術の一つとして3D LiDARによる3D AMCL\cite{3d-AMCL}や3D SLAM\cite{6DSLAM_outside, 3D_SLAM_outside, EKF_SLAM, FAST-LIO, FAST-LIO2}が挙げられる．3D AMCLは事前環境マップを参照し，3D LiDARから得られる点群とのマッチングを行うことにより，自己位置を推定する．3D SLAMは未知環境で自己位置推定のできる技術で，LocalizationとMappingを同時に行うことができる．
 
-続いて，
-英文アブストラクトを「Times New Roman・10pts」，100$\sim$200語，
-その下に「Times New Roman・10pts」でキーワードを3$\sim$5語記述する．
-本文はその下から書きはじめる．
+そこで本研究では，様々な物体を運搬することのできる汎用性のある工場運搬システムの構築を目的として，全方位地上ロボットの3D LiDAR SLAM及び適応的群移動制御による大型物体の協調運搬を行う．本稿では，拡張3D LiDAR SLAM，全方位ロボットの制御，群フォーメーション制御，二次元パレットの協調運搬実験について記す．
 
-\section{本文}
-本文のレイアウトは2段組とし，1段当たり46行，1行24文字を基準とする．
-使用する文字は「明朝体・10pts」を原則とし，
-文章の区切りには全角の読点「，」と句点「．」を用いる．
-半角かな文字を使用してはならない．
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/1.pdf}
+  \end{center}
+  \caption{Sample figure}
+  \label{fig:fig1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/2.pdf}
+  \end{center}
+  \caption{Point matching by 3 LiDAR}
+  \label{fig:fig2}
+\end{figure}
+
+\section{三次元点群を利用した自己位置推定}
+\subsection{モーションキャプチャによる自己位置推定}
+
+　モーションキャプチャによるロボットの自己位置推定は最も汎用的な手法の一つである．この手法の精度は数mmであり非常に高精度であるといえる．しかしながら，地上ロボットが物体を運搬する際には運搬対象物の下側に入り込むため，ロボットを検出することができず，モーションキャプチャが機能しない．そのため，ロボットが自律的に自己位置を推定することのできるシステムが必要となる．
+
+\subsection{ICPと3D-SLAMによる自己位置推定}
+
+　3D SLAM技術を点群マッチングによる原点補正を加え拡張することで，運搬時にもロバストな自己位置推定技術を構築する．SLAMは未知環境で自己位置推定を行う技術であるが，本研究のような既知環境での運搬タスクを伴う全方位ロボットの自己位置推定に使用する際のメリットとして，次の２つが挙げられる．まず，はじめに，ホイールエンコーダーを用いた車輪オドメトリを使わない点が挙げられる．特に，工場の路面環境は滑りやすい上，段差も多く，車輪が空転しやすい．特に，メカナムホイールは悪路走行に弱く，車輪が空転しやすいため安定しづらい．次に，運搬時に運搬物の下に入り込むこと状況でも推定が安定する点である．運搬時には運搬物によりセンサ情報が阻害され，AMCLでは，十分なマッチングが行えず，自己位置が安定しないと考えられる．しかしながら，SLAMであれば，移動量を計算することができるため，比較的安定して自己位置を推定することができる．
+
+しかしながら，SLAMは未知環境で使用される技術であるため，既知環境で使用するには，実環境との座標変換を行うため，起動原点を一定にする必要がある．そこで，事前三次元点群環境情報を利用して，SLAMの原点を補正することで既知環境における汎用でロバストな自己位置推定を構築した．
+SLAM技術により作成された三次元点群による環境地図と3D LiDARから得られる点群情報を利用して，SLAMの原点と環境地図における原点との相対関係を算出することで原点を補正する．環境地図とLiDARからの点群にIterative Closest Point (ICP)\cite{ICP}を適用することにより，点群のマッチングを行い，相互の原点の相対関係を算出する．ICPとは2つの点群同士の位置合わせを繰り返し計算によって実現する手法である．
+
+に本アルゴリズムを適用した結果を示しており，赤色の点群が環境地図の点群を表しており，白色の点群が3D LiDARから得られている点群を表している．ICPの適用により，環境地図の点群と3D LiDARの点群が重なり合っていることが確認できる．
+
+\section{3D LiDARを用いた全方位ロボットの経路追従制御}
+全方位ロボットは通常，メカナムホイールやオムニホイールといった特殊な車輪を使用しており，個々のホイールが独立して回転することで，前後左右，斜めの方向へ自由に移動することが可能になる．通常各車輪にはロータリーエンコーダーが取り付けられ，その回転角度や角速度を計測することで車輪オドメトリとして，目標の速度への追従制御に用いられる．しかしながら，メカナムホイールは各車輪に斜めに取り付けられたローターが独立に回転し全方位性を獲得する半面，地面との接地面積が小さいため十分なグリップを確保できず，空転しやすいという欠点がある．
+
+そこで，LiDARから検出される速度を用いて，メカナムホイール全方位ロボットの経路追従フィードバック制御を構築した．
+制御にはP制御を用い，進行方向が目的の方向になるよう下記の制御をおこなった．
+
+ライダーから進行方向の角度を計算する
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/3.pdf}
+  \end{center}
+  \caption{Sample figure}
+  \label{fig:fig3}
+\end{figure}
+
+
+%-------------------------------------------------
+\begin{equation}
+   \theta_{\text{current}} = \tan^{-1} \left( \frac{v_{y,\text{current}}}{v_{x,\text{current}}} \right)
+\label{eq:current_angle}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   \theta_{\text{target}} = \tan^{-1} \left( \frac{v_{y,\text{target}}}{v_{x,\text{target}}} \right)
+\label{eq:target_angle}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   v_{\text{target}} = \sqrt{v_{x,\text{target}}^2 + v_{y,\text{target}}^2}
+\label{eq:target_speed}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   e_{\text{angle\_linear}} = \theta_{\text{target}} - \theta_{\text{current}}
+\label{eq:angle_error_linear}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   e_{\text{angular}} = \omega_{\text{target}} - \omega_{\text{current}}
+\label{eq:angular_error}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   u_{\text{linear}} = K_p^{\text{linear}} \cdot e_{\text{angle\_linear}}
+\label{eq:pi_control_linear}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   u_{\text{angular}} = K_p^{\text{angular}} \cdot e_{\text{angular}}
+\label{eq:pi_control_angular}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   v_{x,\text{corrected}} = v_{\text{target}} \cdot \cos \left( \theta_{\text{current}} + u_{\text{linear}} \right)
+\label{eq:corrected_velocity_x}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   v_{y,\text{corrected}} = v_{\text{target}} \cdot \sin \left( \theta_{\text{current}} + u_{\text{linear}} \right)
+\label{eq:corrected_velocity_y}
+\end{equation}
+
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/4.pdf}
+  \end{center}
+  \caption{Sample figure}
+  \label{fig:fig4}
+\end{figure}
+
+
+\section{ロボット群のフォーメーション制御}
+複数の全方位ロボットで運搬作業を行うには，全体のロボットが間隔と姿勢を維持しながら移動する機能が必要であると考えられる．そこで，後述の間隔保持制御と方向保持制御を構築した．
+
+\subsection{集中制御による間隔保持制御}
+運搬時のロボットの間隔を保持するために，集中制御による間隔保持制御を構築した．
+各ロボットの相対距離から二次計画問題QP（Quadoratic Problem）をたて，最適な速度を計算した．
+右辺には
+
+%-------------------------------------------------
+\begin{equation}
+   d_{ij} = \Vert \mathbf{p}_j - \mathbf{p}_i \Vert
+\label{eq:distance_between_robots}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   \dot{d}_{ij} = \left( \frac{(\mathbf{p}_j - \mathbf{p}_i)^T}{d_{ij}} \right) \left( \dot{\mathbf{p}}_i - \dot{\mathbf{p}}_j \right)
+\label{eq:velocity_difference}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   \dot{d}_f = J_f \mathbf{v}
+\label{eq:formation_jacobian}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   J_f =
+   \begin{pmatrix}
+   -n_{12} & n_{12} & 0_{1\times 2}  \\
+   -n_{13} & 0_{1\times 2} & n_{13}  \\
+   0_{1\times 2} & -n_{23} & n_{23}
+   \end{pmatrix}
+\label{eq:jacobian_matrix}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   n_{ij} = \frac{(\mathbf{p}_j - \mathbf{p}_i)^T}{d_{ij}}
+\label{eq:n_ij_definition}
+\end{equation}
+
+%-------------------------------------------------
+\begin{equation}
+   J_f \mathbf{v} = -\lambda_f \left( d_f - d_f^* \right)
+\label{eq:formation_control}
+\end{equation}
+
+
+\subsection{方向保持制御}
+3D LiDARのセンサ値ができる限り運搬物や他のロボットにより阻害されないように，フォーメーションの重心からの方向に保持するようにフィードバック制御を構築した．
+重心からの方向を計算し，P制御により，ロボットの回転によって方向を制御した．
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/5.pdf}
+  \end{center}
+  \caption{Sample figure}
+  \label{fig:fig5}
+\end{figure}
+
+%% \begin{equation}
+%% \theta_ = \text{atan2}(G_y, G_x)
+%% \label{eq:direction}
+%% \end{equation}
+
+%% \begin{equation}
+%% e_w = d_w^* - d_w
+%% \label{eq:direction}
+%% \end{equation}
+
+\begin{equation}
+w = \lambda_w \theta_{diff}
+\label{eq:direction}
+\end{equation}
+
+
+%% ここで，\(\mathbf{G} = (G_x, G_y)\) はロボットの重心位置ベクトルです．
+
+\section{システムアーキテクチャ}
+　本システムではハードウェアとして，移動台車ロボットとその台車を制御する制御基板，センサーとして3D LiDAR，力覚センサ，リニアアクチュエータ，ロボットの自己位置推定と方向保持制御とLiDARを利用した台車速度制御をオンラインで実行するためのOnboard PC，ロボット群のフォーメーションを制御するCenter PCを使用する．
+本システムでは，まず，State Estimator内のSLAM技術を用いて，環境マップを作成する．作成された3D MAPを用いてSLAMとOrigin Correctionによる自己位置推定を行う．このプロセスを各ロボットで独立して行い，それぞれのオドメトリをCenter PCに渡す．Center PCにより，ロボットの重心位置とフォーメーション維持のための制御入力が計算され，各Onboard PCに返される．この間に，パイロットからの移動支持を受け取り，フォーメーション維持の制御入力と足し合わされる．その後，OnboardPCでは方向保持と3DLiDARを利用したフィードバック速度制御により，台車ロボットの速度入力が決定される．
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/6.pdf}
+  \end{center}
+  \caption{System Architecture}
+  \label{fig:fig6}
+\end{figure}
+
+
+\section{実験}
+
+
+\subsection{プラットフォーム}
+本システムの開発にはロボット用のミドルウェアとして広く利用されているROS(Robot Operating System)を利用し，Formation Control, State Estimator, Robot Orientation Control, Robot Velocity Controller の処理に活用された．
+Onboard PCとして，Khadas社製Vim4(KVIM4-B-001)，3D LiDARとしてLivox社製Mid-360， Force SensorにはCFS，Linear Actuator にはactunonics，地上ロボットにはヴィンストン社製メカナムホイール全方位移動台車ロボット メカナムローバー ver3.0を用いた．
+
+\subsection{実験方法}
+\begin{enumerate}[label=(\alph*)]
+  \item 45°方向の1台のロボットの移動制御
+  \item 3台でのフォーメーション制御
+  \item 3台でのフォーメーション制御によるパレット運搬
+\end{enumerate}
+
+の3つの実験を行った．
+
+\subsection{実験結果}
+\subsubsection{45°方向の1台のロボットの移動制御}
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/7.pdf}
+  \end{center}
+  \caption{Trajectory of robot}
+  \label{fig:fig7}
+\end{figure}
+
+\subsubsection{3台でのフォーメーション制御}
+\begin{table}[htbp]
+    \caption{Points in experiment}
+    \label{table1}
+    \centering
+    \begin{tabular}{ccc} \hline
+      $d_{12}$ [m] & $d_{23}$ [m] & $d_{31}$ [m] \\ \hline
+      1.0 & 1.0 & 1.0 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/8.pdf}
+  \end{center}
+  \caption{Sample figure}
+  \label{fig:fig4}
+\end{figure}
+
+\begin{figure}[htbp]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=65mm]{figs/9.pdf}
+  \end{center}
+  \caption{Sample figure}
+  \label{fig:fig4}
+\end{figure}
+\subsubsection{3台でのフォーメーション制御によるパレット運搬}
+\begin{table}[htbp]
+    \caption{Points in experiment}
+    \label{table1}
+    \centering
+    \begin{tabular}{ccc} \hline
+      $d_{12}$ [m] & $d_{23}$ [m] & $d_{31}$ [m] \\ \hline
+      1.0 & 1.0 & 1.0 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+
+\subsection{実験考察}
+(a)では，フィードバック制御を加えない状態では，445°の指令値に対して，移動方向が60°〜°ほどであったが，LiDARオドメトリを利用したフィードバック制御を追加することによって大幅に改善された．(b）(c)にかんしては，停止時は高精度に間隔を保持することができたが，移動時は3台のSLAMの誤差の積算や，制御入力の問題で，間隔が広がるタイミングが存在した．
+
+\section{結言}
+SLAMさんだいの誤差が積算されている
+今後は運搬時には力センサからのフィードバック制御を追加し，フォーメーションに加えて，力学的な適応性を獲得する必要がある．
+また，リニアアクチュエータの長さ制御により，接触力を調節し，三次元的な物体の把持の実現を目指す．
 
 %-------------------------------------------------
 %  Table 2 (tbl:units)
 %-------------------------------------------------
-\begin{table*}[htbp]
-  \setcounter{table}{1}
-  \begin{center}
-  \caption{Examples of symbols and units}
-  \label{tbl:units}
-  \begin{tabular}{c||c|c|c|c|c|c|c|c}\hline
-    Item   & Time    & Length  & Angular velocity & Acceleration & Mass  & Moment of inertia & Force & Torque   \\\hline
-    Symbol & $t$     & $l$     & $\omega$         & $\alpha$     & $m$   & $I$               & $f$   & $\tau$   \\\hline
-    Unit   & s       & m       & rad/s            & m/s$^2$      & kg    & kgm$^2$           & N     & Nm       \\\hline
-    1      & x.xxxx  & x.xxx   & x.xxx            & x.xxx        & x.xxx & x.xxx             & x.xxx & x.xxx    \\\hline
-    2      & x.xxxx  & x.xxx   & x.xxx            & x.xxx        & x.xxx & x.xxx             & x.xxx & x.xxx    \\\hline
-    3      & 8.1409  & 1.285   & 4.301            & 0.023        & 3.112 & 2.207             & 0.444 & 6.008    \\\hline
-    4      & x.xxxx  & x.xxx   & x.xxx            & x.xxx        & x.xxx & x.xxx             & x.xxx & x.xxx    \\\hline
-  \end{tabular}
-  \end{center}
-\end{table*}
-%-------------------------------------------------
+%% \begin{table*}[htbp]
+%%   \setcounter{table}{1}
+%%   \begin{center}
+%%   \caption{Examples of symbols and units}
+%%   \label{tbl:units}
+%%   \begin{tabular}{c||c|c|c|c|c|c|c|c}\hline
+%%     Item   & Time    & Length  & Angular velocity & Acceleration & Mass  & Moment of inertia & Force & Torque   \\\hline
+%%     Symbol & $t$     & $l$     & $\omega$         & $\alpha$     & $m$   & $I$               & $f$   & $\tau$   \\\hline
+%%     Unit   & s       & m       & rad/s            & m/s$^2$      & kg    & kgm$^2$           & N     & Nm       \\\hline
+%%     1      & x.xxxx  & x.xxx   & x.xxx            & x.xxx        & x.xxx & x.xxx             & x.xxx & x.xxx    \\\hline
+%%     2      & x.xxxx  & x.xxx   & x.xxx            & x.xxx        & x.xxx & x.xxx             & x.xxx & x.xxx    \\\hline
+%%     3      & 8.1409  & 1.285   & 4.301            & 0.023        & 3.112 & 2.207             & 0.444 & 6.008    \\\hline
+%%     4      & x.xxxx  & x.xxx   & x.xxx            & x.xxx        & x.xxx & x.xxx             & x.xxx & x.xxx    \\\hline
+%%   \end{tabular}
+%%   \end{center}
+%% \end{table*}
+%% %-------------------------------------------------
 
-\section{記号・単位}
-数字，数学記号，量記号及び単位記号は半角英数字を使用し，
-数学記号，及び量記号はイタリック体，単位記号はローマン体で書く．
-単位は，SI単位を使用する．
-量記号に単位を付ける場合は，$m$[kg] のように単位を半角大括弧でくくる．
-また，数字に単位を付ける場合は 5kg のように括弧は付けない．
+%% \section{記号・単位}
+%% 数字，数学記号，量記号及び単位記号は半角英数字を使用し，
+%% 数学記号，及び量記号はイタリック体，単位記号はローマン体で書く．
+%% 単位は，SI単位を使用する．
+%% 量記号に単位を付ける場合は，$m$[kg] のように単位を半角大括弧でくくる．
+%% また，数字に単位を付ける場合は 5kg のように括弧は付けない．
 
-\section{見出し}
-\subsection{章見出し}
-章見出しは2行分を取り，行の中ほどに「ゴシック体・10pts・ボールド」で書く．
-%（メニューの「書式」「段落」における「インデントと行間隔」のタブで，
-%「間隔」の段落前と段落後を5ptに設定する．）
-ただし18字以上は3 行分を取る．
+%% \section{見出し}
+%% \subsection{章見出し}
+%% 章見出しは2行分を取り，行の中ほどに「ゴシック体・10pts・ボールド」で書く．
+%% %（メニューの「書式」「段落」における「インデントと行間隔」のタブで，
+%% %「間隔」の段落前と段落後を5ptに設定する．）
+%% ただし18字以上は3 行分を取る．
 
-\subsection{節見出し}
-節見出しは本文と同じ体裁で「ゴシック体・10pts・ボールド」で書く．
-本文は改行せず，節見出しの直後に2文字空白を空け書きはじめる．
+%% \subsection{節見出し}
+%% 節見出しは本文と同じ体裁で「ゴシック体・10pts・ボールド」で書く．
+%% 本文は改行せず，節見出しの直後に2文字空白を空け書きはじめる．
 
-\section{図・写真，及び表}
-\begin{itemize}
-\item[(1)] 本文中では，図1，表1のように日本語で書く．写真は図として扱う．
-\item[(2)] 番号・説明などは，図・写真についてはその下に，
-           表についてはその上に書く（図\ref{fig:sample}，表\ref{tbl:symb}参照）．
-\item[(3)] 本文と図・表の間は1行以上の空白を空ける．
-\item[(4)] 図中・表中の説明，及び題目はすべて英語で書く（最初の文字は大文字とする）．
-\item[(5)] 図，及び表がl段（片側）に収まらない場合，表\ref{tbl:units}のように2段（両側）にまたがって書いてもよい．
-\item[(6)] 図，及び表の横に空白ができても，その空白部には本文を記入してはならない．
-\end{itemize}
-%-----------------------------------------------------------
-%  Figure 1 (fig:sample)
-%-----------------------------------------------------------
-\begin{figure}[htbp]
-  \begin{center}
-  \vspace{1zh}
-    \includegraphics[width=65mm]{figs/fig.eps}
-  \end{center}
-  \caption{Sample figure}
-  \label{fig:sample}
-\end{figure}
-%-----------------------------------------------------------
+%% \section{図・写真，及び表}
+%% \begin{itemize}
+%% \item[(1)] 本文中では，図1，表1のように日本語で書く．写真は図として扱う．
+%% \item[(2)] 番号・説明などは，図・写真についてはその下に，
+%%            表についてはその上に書く（図，表\ref{tbl:symb}参照）．
+%% \item[(3)] 本文と図・表の間は1行以上の空白を空ける．
+%% \item[(4)] 図中・表中の説明，及び題目はすべて英語で書く（最初の文字は大文字とする）．
+%% \item[(5)] 図，及び表がl段（片側）に収まらない場合，表\ref{tbl:units}のように2段（両側）にまたがって書いてもよい．
+%% \item[(6)] 図，及び表の横に空白ができても，その空白部には本文を記入してはならない．
+%% \end{itemize}
 
-%-------------------------------------------------
-% Table 1 (tbl:symb)
-%-------------------------------------------------
-\begin{table}[htbp]
-  \setcounter{table}{0}
-  \begin{center}
-  \vspace{1zh}
-  \caption{Sample expressions of values}
-  \label{tbl:symb}
-  \begin{tabular}{c|c}\hline
-    Recommend     & Not recommend \\\dhline
-    $\sqrt{x-y}$ & $\sqrt{ } (x-y)$ \\\hline
-    $(a+b)/(c+d)$ & $a+b/c+d$        \\\hline
-  \end{tabular}
-  \end{center}
-\end{table}
-%-------------------------------------------------
-
-\section{数式}
-数式は次のようにセンタリングで書き，
-式番号を式と同じ行に右寄せして小括弧の中に書く．
-%-------------------------------------------------
-% eq:dynamics1
-%-------------------------------------------------
-\begin{equation}
-   \bm{\tau} = \bm{M}(\bm{q})\ddot{\bm{q}} + \bm{h}(\bm{q},\dot{\bm{q}}) + \bm{g}
-\label{eq:dynamics1}
-\end{equation}
-%-------------------------------------------------
-また，本文で式を引用するときは，式(\ref{eq:dynamics1})のように書く．
-なお，本文と式，式相互間は1行以上の空白を空ける．
-%また，原則として数式エディタのポイント数は本文に準じるものとするが，
-%添え字等が小さく読みにくくなるときは適宜拡大する．
-
-\section{参考文献}
-
-参考文献については，本文中の引用箇所の右肩に，
-小括弧付けで通し番号を付ける\cite{bibsample1,bibsample2,aaaa,bbbb}．
-%例えば，新宿・渋谷（1）〜（3）のようにする．
-文中で引用された参考文献は，
-本文末尾に本文と対応する番号順でまとめて書く．
-番号は引用と同様に小括弧でくくる．
-
-\section{結言}
-本サンプルファイルはすべての環境で動作，仕上がりを保証するものではありません．
-ご使用の環境に合わせて，適宜，変更，微調整を行ってください．
+%% %-------------------------------------------------
+%% % Table 1 (tbl:symb)
+%% %-------------------------------------------------
+%% \begin{table}[htbp]
+%%   \setcounter{table}{0}
+%%   \begin{center}
+%%   \vspace{1zh}
+%%   \caption{Sample expressions of values}
+%%   \label{tbl:symb}
+%%   \begin{tabular}{c|c}\hline
+%%     Recommend     & Not recommend \\\dhline
+%%     $\sqrt{x-y}$ & $\sqrt{ } (x-y)$ \\\hline
+%%     $(a+b)/(c+d)$ & $a+b/c+d$        \\\hline
+%%   \end{tabular}
+%%   \end{center}
+%% \end{table}
+%% %-------------------------------------------------
 
 %---------------------------------------------------------------------
 % 参考文献
 %---------------------------------------------------------------------
 {\small
 \begin{thebibliography}{99}
-%
-\bibitem{bibsample1}
-    Robo TEKUSU,
-    ``Xxxxxxxxxx xx Xxx Xxxxxx xxxx Xxxxxxxxx Xxxxxxxxx'',
-    {\it Proceedings of the 2004 IEEE/RSJ International
-    Conference on Intelligent Robot and Systems},
-    (2004), pp.xxxx--xxxx.
-%
-\bibitem{bibsample2}
-    Author First, Author Second and Author Third,
-    ``XXXX XXXX Xxxxxxxxxx Xxxxxxxxx Xxxxxxxxx'',
-    {\it IEEE Transactions on Robotics and Automation},
-    Vol.17, No.3(1998), pp.xxx--xxx.
-%
-\bibitem{aaaa}
-    進歩 次亜，
-    “正しい投稿論文の書き方”，
-    山口出版, (2002),
-    pp.128--158．
-%
-\bibitem{bbbb}
-    著者 A，著者 B，
-    “一脚移動ロボットの動作計画と検証実験”，
-    日本機械学会論文集C編，
-    Vol.82，No.945 (2009), pp.xxx--xxx.
-\end{thebibliography}}
+%                                                                                                                                                                                                          
+\bibitem{2d-AMCL}
+    Dellaert, F., Fox, D., Burgard, W., and Thrun, S.,
+    ``Monte Carlo localization for mobile robots'',
+    {\it Proceedings 1999 IEEE International Conference on Robotics and Automation (Cat. No.99CH36288C)},
+    (1999), pp.1322--1328 vol.2.
+%                                                                                                                                                                                                          
+\bibitem{2d-SLAM}
+    Hess, Wolfgang, Kohler, Damon, Rapp, Holger, and Andor, Daniel,
+    ``Real-time loop closure in 2D LIDAR SLAM'',
+    {\it 2016 IEEE International Conference on Robotics and Automation (ICRA)},
+    (2016), pp.1271--1278.
+%                                                                                                                                                                                                          
+\bibitem{6DSLAM_outside}
+    N{\"u}chter, Andreas, Lingemann, Kai, Hertzberg, Joachim, and Surmann, Hartmut,
+    ``6D SLAM—3D mapping outdoor environments'',
+    {\it Journal of Field Robotics},
+    Vol.24, No.8-9 (2007), pp.699--722.
+%                                                                                                                                                                                                          
+\bibitem{3d-AMCL}
+    Perez-Grau, Francisco J, Caballero, Fernando, Viguria, Antidio, and Ollero, Anibal,
+    ``Multi-sensor three-dimensional Monte Carlo localization for long-term aerial robot navigation'',
+    {\it International Journal of Advanced Robotic Systems},
+    Vol.14, No.5 (2017), pp.1729881417732757.
+%                                                                                                                                                                                                          
+\bibitem{3D_SLAM_outside}
+    Cole, David M and Newman, Paul M,
+    ``Using laser range data for 3D SLAM in outdoor environments'',
+    {\it Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006.},
+    (2006), pp.1556--1563.
+
+    %
+    
+\bibitem{EKF_SLAM}
+    Weingarten, Jan and Siegwart, Roland,
+    ``EKF-based 3D SLAM for structured environment reconstruction'',
+    {\it 2005 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+    (2005), pp.3834--3839.
+%                                                                                                                                                                                                          
+\bibitem{FAST-LIO}
+    Xu, Wei and Zhang, Fu,
+    ``FAST-LIO: A Fast, Robust LiDAR-Inertial Odometry Package by Tightly-Coupled Iterated Kalman Filter'',
+    {\it IEEE Robotics and Automation Letters},
+    Vol.6, No.2 (2021), pp.3317--3324.
+%                                                                                                                                                                                                          
+\bibitem{FAST-LIO2}
+    Xu, Wei, Cai, Yixi, He, Dongjiao, Lin, Jiarong, and Zhang, Fu,
+    ``FAST-LIO2: Fast Direct LiDAR-Inertial Odometry'',
+    {\it IEEE Transactions on Robotics},
+    Vol.38, No.4 (2022), pp.2053--2073.
+%                                                                                                                                                                                                          
+\bibitem{ICP}
+    Rusinkiewicz, S. and Levoy, M.,
+    ``Efficient variants of the ICP algorithm'',
+    {\it Proceedings Third International Conference on 3-D Digital Imaging and Modeling},
+    (2001), pp.145--152.
+
+\bibitem{mecanum}
+    Taheri, Hamid and Qiao, Bing and Ghaeminezhad, Nourallah,
+    ``Kinematic Model of a Four Mecanum Wheeled Mobile Robot'',
+    {\it International Journal of Computer Applications},
+    (2015), pp.6--9.
+
+\end{thebibliography}
 
 \end{document}
